@@ -477,7 +477,7 @@ async def russian_roulette(cmd):
 	accepted = 0
 	msg = await cmd.client.wait_for_message(timeout = 10, author = member, check = check)
 	if msg != None:
-		if msg.content == "!accept":
+		if msg.content == ewcfg.cmd_accept:
 			accepted = 1
 
 	#Start game

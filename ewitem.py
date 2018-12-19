@@ -1,5 +1,6 @@
 import time
 
+import ewcasino
 import ewutils
 import ewcfg
 import ewstats
@@ -590,3 +591,62 @@ def give_item(
 		ewutils.execute_sql_query(sql_query)
 
 	return True
+
+
+async def offer(cmd):
+	user_data = EwUser(member = cmd.message.author)
+	offers = []
+
+	if cmd.tokens_count > 1:
+		for token in cmd.tokens[1:]:
+			if token.startswith('<@') is False:
+				offers.append(token)
+
+	member = None
+	if cmd.mentions_count == 1:
+		member = cmd.mentions[0]
+		if member.id == cmd.message.author.id:
+			response = "You can't barter with yourself."
+			return await cmd.client.send_message(cmd.message.channel, ewutils.formatMessage(cmd.message.author, response))
+
+	items = inventory(
+		id_user = cmd.message.author.id,
+		id_server = (cmd.message.server.id if (cmd.message.server != None) else None)
+	)
+
+	barter_items = []
+	for offer in offers:
+		found = False
+		for item in items:
+			if offer in ewutils.flattenTokenListToString(item.get('name')):
+				barter_items.append(item)
+				offers[offers.index(offer)] = int(item.get("id_item"))
+				found = True
+				break
+		if found:
+			barter_items[-1] = EwItem(id_item = barter_items[-1].get("id_item"))
+
+	if len(offers) > len(barter_items):
+		not_found = []
+		for offer in offers:
+			if type(offer) is str:
+				not_found.append(offer)
+		response = "Could not find the following items: {}".format(ewutils.formatNiceList(not_found))
+		return await cmd.client.send_message(cmd.message.channel, ewutils.formatMessage(cmd.message.author, response))
+
+	elif member is None:
+		response = "You have to specify your bartering victim."
+		return await cmd.client.send_message(cmd.message.channel, ewutils.formatMessage(cmd.message.author, response))
+
+	else:
+		accepted = 0
+
+		msg = await cmd.client.wait_for_message(timeout = 10, author = member, check = ewcasino.check)
+		if msg != None:
+			if msg.content == "!offerparry":
+				accepted = 1
+
+
+def check_offerparry(str):
+	if str.content == ewcfg.cmd_accept or str.content == ewcfg.cmd_refuse:
+		return True
