@@ -201,10 +201,11 @@ async def attack(cmd):
 		elif ewmap.poi_is_pvp(shootee_data.poi) == False:
 			response = "{} is not mired in the ENDLESS WAR right now.".format(member.display_name)
 
-		elif user_iskillers == False and user_isrowdys == False:
+		elif not(user_iskillers is False and user_isrowdys is False) or user_data.life_state == ewcfg.life_state_corpse:
 			# Only killers, rowdys, the cop killer, and rowdy fucker can shoot people.
-			if user_data.life_state == ewcfg.life_state_juvenile:
-				response = "Juveniles lack the moral fiber necessary for violence."
+			if user_data.life_state == ewcfg.life_state_enlisted:
+				#response = "Juveniles lack the moral fiber necessary for violence."
+				response = "Come on, get into the holiday spirit!"
 			else:
 				response = "You lack the moral fiber necessary for violence."
 
@@ -423,7 +424,8 @@ async def attack(cmd):
 						else:
 							user_data.change_slimecredit(n = coinbounty, coinsource = ewcfg.coinsource_bounty)
 							user_data.change_slimes(n = slimes_dropped / 2, source = ewcfg.source_killing)
-							boss_slimes += int(slimes_dropped / 2)
+							#boss_slimes += int(slimes_dropped / 2)
+							#fixme uncomment the above line
 
 					# Steal items
 					ewitem.item_loot(member = member, id_user_target = cmd.message.author.id)
@@ -624,9 +626,9 @@ async def spar(cmd):
 				response = "{} is too exhausted to train right now. They need a snack!".format(member.display_name)
 			elif user_isdead == True:
 				response = "The dead think they're too cool for conventional combat. Pricks."
-			elif user_iskillers == False and user_isrowdys == False:
+			elif not(user_iskillers is False and user_isrowdys is False) or user_data.life_state == ewcfg.life_state_corpse:
 				# Only killers, rowdys, the cop killer, and the rowdy fucker can spar
-				response = "Juveniles lack the backbone necessary for combat."
+				response = "Ease up, there's no need to spar during the holiday."
 			else:
 				was_juvenile = False
 				was_sparred = False
@@ -739,8 +741,9 @@ async def equip(cmd):
 		response = "You must go to the #{} to change your equipment.".format(ewcfg.channel_dojo)
 	elif user_data.life_state == ewcfg.life_state_corpse:
 		response = "Ghosts can't equip weapons."
-	elif user_data.life_state == ewcfg.life_state_juvenile:
-		response = "Juvies can't equip weapons."
+	#elif user_data.life_state == ewcfg.life_state_juvenile:
+		#response = "Juvies can't equip weapons."
+		#fixme uncomment above lines
 	else:
 		value = None
 		if cmd.tokens_count > 1:

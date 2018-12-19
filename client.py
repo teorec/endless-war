@@ -93,6 +93,8 @@ cmd_map = {
 	ewcfg.cmd_thrash: ewcmd.thrash,
 	ewcfg.cmd_dab: ewcmd.dab,
 
+	#slimernalia greeting
+	ewcfg.cmd_slimernaliagreeting: ewcmd.slimernaliagreeting,
 
 	# Show the total of negative slime in the world.
 	#ewcfg.cmd_negaslime: ewspooky.negaslime,

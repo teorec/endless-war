@@ -126,7 +126,9 @@ async def order(cmd):
 			if member != None:
 				target_data = EwUser(member = member)
 
-			value = food.price if not togo else food.price * ewcfg.togo_price_increase
+			#value = food.price if not togo else food.price * ewcfg.togo_price_increase
+			value = 0
+			#fixme uncomment above lines
 
 			# Kingpins eat free.
 			if user_data.life_state == ewcfg.life_state_kingpin or user_data.life_state == ewcfg.life_state_grandfoe:
