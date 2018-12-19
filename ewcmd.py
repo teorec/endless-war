@@ -265,7 +265,8 @@ async def dab(cmd):
 """
 async def slimernaliagreeting(cmd):
 	user_data = EwUser(member = cmd.message.author)
-	await cmd.client.send_message(cmd.message.channel, ewutils.formatMessage(cmd.message.author, "sample text"))
+	await cmd.client.send_message(cmd.message.channel, ewutils.formatMessage(cmd.message.author, "/tts @everyone Yo, Slimernalia!"))
+	#fixme slimernalia
 
 """
 	advertise patch notes

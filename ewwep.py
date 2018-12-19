@@ -205,7 +205,8 @@ async def attack(cmd):
 			# Only killers, rowdys, the cop killer, and rowdy fucker can shoot people.
 			if user_data.life_state == ewcfg.life_state_enlisted:
 				#response = "Juveniles lack the moral fiber necessary for violence."
-				response = "Come on, get into the holiday spirit!"
+				response = "Not so fast, you scrooge! Only Juveniles can attack other players during Slimernalia."
+				#fixme Slimernalia
 			else:
 				response = "You lack the moral fiber necessary for violence."
 
@@ -627,8 +628,8 @@ async def spar(cmd):
 			elif user_isdead == True:
 				response = "The dead think they're too cool for conventional combat. Pricks."
 			elif not(user_iskillers is False and user_isrowdys is False) or user_data.life_state == ewcfg.life_state_corpse:
-				# Only killers, rowdys, the cop killer, and the rowdy fucker can spar
-				response = "Ease up, there's no need to spar during the holiday."
+				response = "Not so fast, you scrooge! Only Juveniles can spar during Slimernalia."
+				#fixme slimernalia
 			else:
 				was_juvenile = False
 				was_sparred = False
@@ -743,7 +744,7 @@ async def equip(cmd):
 		response = "Ghosts can't equip weapons."
 	#elif user_data.life_state == ewcfg.life_state_juvenile:
 		#response = "Juvies can't equip weapons."
-		#fixme uncomment above lines
+	#fixme slimernalia
 	else:
 		value = None
 		if cmd.tokens_count > 1:

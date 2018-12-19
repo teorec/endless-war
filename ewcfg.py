@@ -152,7 +152,7 @@ cmd_dab = cmd_prefix + 'dab'
 cmd_russian = cmd_prefix + 'russianroulette'
 cmd_accept = cmd_prefix + 'accept'
 cmd_refuse = cmd_prefix + 'refuse'
-cmd_slimernaliagreeting = cmd_prefix + 'greet'
+cmd_slimernaliagreeting = cmd_prefix + 'yoslimernalia'
 
 # Slime costs/values
 slimes_onrevive = 20
